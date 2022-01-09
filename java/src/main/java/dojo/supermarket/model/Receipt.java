@@ -22,6 +22,10 @@ public class Receipt {
         this.items.add(new ReceiptItem(p, quantity, price, totalPrice));
     }
 
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
+    }
+
     public List<ReceiptItem> getItems() {
         return new ArrayList<>(this.items);
     }

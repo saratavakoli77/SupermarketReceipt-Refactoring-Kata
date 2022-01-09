@@ -7,6 +7,7 @@ import java.util.Map;
 public class Teller {
 
     private final SupermarketCatalog catalog;
+    private final OfferService offerService = new OfferService();
     private Map<Product, Offer> offers = new HashMap<>();
 
     public Teller(SupermarketCatalog catalog) {
@@ -14,7 +15,7 @@ public class Teller {
     }
 
     public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-        this.offers.put(product, new Offer(offerType, product, argument));
+        offerService.addOfferType(offerType, product, argument);
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
@@ -27,7 +28,7 @@ public class Teller {
             double price = quantity * unitPrice;
             receipt.addProduct(p, quantity, unitPrice, price);
         }
-        theCart.handleOffers(receipt, this.offers, this.catalog);
+        theCart.handleOffers(receipt, this.offerService, this.catalog);
 
         return receipt;
     }
